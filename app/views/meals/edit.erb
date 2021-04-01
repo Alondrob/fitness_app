@@ -1,0 +1,14 @@
+<h1> Edit Meal </h1>
+<form action="/meals/<%=@meal.id%>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Name </label>
+    <input type="text" name="name" value="<%=@meal.name%>"/>
+    <label for="measurement_unit">measurement_unit </label>
+    <input type="text" name="measurement_unit" value="<%=@meal.measurement_unit%>"/>
+    <label for="weight">Weight </label>
+    <input type="number" name="weight" value="<%=@meal.weight%>"/>
+    <label for="calories">Calories </label>
+    <input type="number" name="calories" value="<%=@meal.calories%>"/>
+    <input type="submit" value="Edit meal">
+
+</form>

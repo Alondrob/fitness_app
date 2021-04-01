@@ -1,0 +1,20 @@
+
+<h1> HELLO </h1>
+
+<h1> All users </h1>
+
+<% @meals.each do |date, meals| %>
+    <h3><%= date %></h3>
+    <% meals.each do |meal| %>
+        <p>
+            <%= meal.name %>, <%= meal.calories %>,  <%= meal.created_at.to_date %>
+            <a href="/meals/<%= meal.id %>/edit"> Edit Meal </a>
+             <form action="/meals/<%=meal.id%>" method="post">
+                <input type="hidden" name="_method" value="delete"> 
+                <input type="submit" value="Delete">
+            </form>
+
+         </p>
+    <% end %>
+    <h4>Total Calories for <%= date %> is <%= Meal.total_calories(meals) %> </h4> 
+<% end %>

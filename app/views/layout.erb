@@ -17,8 +17,14 @@
     <div class="wrapper">
 
       <% if logged_in? %>
+        <a href="/homepage">Homepage</a>
         <a href="/meals/new">Add Meal</a>
+        <a href="/meals">All Meals</a>
         <a href="/logout">Logout</a>
+        <form action="/users/<%=current_user.id%>/delete" method="post">
+        <input type = "hidden", name="_method" value= "DELETE">
+        <input type ="submit" value="Delete profile"></form>
+       
       <% else %>
         <a href="/users/new">Sign Up</a>
         <a href="/login">    Login</a>
