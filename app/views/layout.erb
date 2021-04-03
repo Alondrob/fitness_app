@@ -15,15 +15,33 @@
   </head>
   <body>
     <div class="wrapper">
-
+        <a href="/about_us"> About Us </a>
+        &nbsp;
+        &nbsp;
+        <a href="/privacy"> Privacy </a>
+        &nbsp;
+        &nbsp;
       <% if logged_in? %>
-        <a href="/homepage">Homepage</a>
+      
+        <a href="/homepage">Homepage </a>
+        &nbsp;
+        &nbsp;
+        <a href="/users/<%=current_user.id%>/edit">Edit User </a>
+        &nbsp;
+        &nbsp;
         <a href="/meals/new">Add Meal</a>
+        &nbsp;
+        &nbsp;
         <a href="/meals">All Meals</a>
+        &nbsp;
+        &nbsp;
         <a href="/logout">Logout</a>
-        <form action="/users/<%=current_user.id%>/delete" method="post">
-        <input type = "hidden", name="_method" value= "DELETE">
-        <input type ="submit" value="Delete profile"></form>
+        &nbsp;
+        &nbsp;
+        <form action="/users/<%=current_user.id%>" method="post">
+          <input type = "hidden", name="_method" value= "DELETE">
+          <input type ="submit" value="Delete profile">
+        </form>
        
       <% else %>
         <a href="/users/new">Sign Up</a>

@@ -8,9 +8,13 @@ class UsersController < ApplicationController
 
     post '/users' do
          
-        @user = User.create(params)
-        session[:user_id] = @user.id
-        redirect "/users/#{@user.id}"     
+        user = User.new(params)
+        if user.save
+            session[:user_id] = user.id
+            redirect "/users/#{user.id}"   
+        else
+            redirect to '/users/new'
+        end  
     end
 
     get '/homepage' do
@@ -55,19 +59,34 @@ class UsersController < ApplicationController
         erb :"users/index"
     end
 
-    delete '/users/:id/delete' do
-        # binding.pry
-        if logged_in?
-            @user = User.find_by_id(params[:id])
-            # binding.pry
-            if @user == current_user
-                session.destroy
-                @user.delete
+    get '/users/:id/edit' do
+        redirect_if_not_logged_in
+        @user = User.find_by_id(params[:id])
+        erb :"users/edit"
+    end
+
+    patch '/users/:id' do
+        redirect_if_not_logged_in
+        user = User.find_by_id(params[:id])
+        if user == current_user
+            if user.update(name: params[:name], email: params[:email], weight: params[:weight], height: params[:height])
+               redirect "/users/#{user.id}" 
+            else
+               redirect "/users/#{current_user.id}/edit"
             end
-            redirect to '/users/new'
-        else
-            redirect to '/users/:id'
         end
+         redirect "/users/#{user.id}"
+    end
+
+    delete '/users/:id' do
+        redirect_if_not_logged_in
+            user = User.find_by_id(params[:id])
+            # binding.pry
+            if  user == current_user
+                session[:user_id] = nil
+                user.destroy
+            end
+                redirect to '/users/new'
     end
 
 end

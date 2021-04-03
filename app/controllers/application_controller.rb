@@ -15,6 +15,15 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  get "/about_us" do
+    erb :"general/about_us"
+  end
+
+  get "/privacy" do
+    erb :"general/privacy"
+  end
+
+
   helpers do
     def current_user
       User.find_by_id(session[:user_id])

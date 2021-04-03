@@ -7,11 +7,13 @@ class MealsController < ApplicationController
   end
 
   post '/meals' do
-    @meal = Meal.new(params)
-    @meal.user = current_user
-    @meal.save
-    redirect "/meals/#{@meal.id}"
-    
+    meal = Meal.new(params)
+    meal.user = current_user
+    if meal.save
+       redirect "/meals/#{meal.id}"
+    else
+      redirect to '/meals/new'
+    end
   end
 
   get '/meals/:id' do
@@ -30,9 +32,9 @@ class MealsController < ApplicationController
 
  delete '/meals/:id' do
     if logged_in?
-      @meal = Meal.find_by_id(params[:id])
-      if current_user == @meal.user
-         @meal.delete
+      meal = Meal.find_by_id(params[:id])
+      if current_user == meal.user
+         meal.destroy
       end
         redirect to "/users/#{current_user.id}"
     else
@@ -49,9 +51,13 @@ class MealsController < ApplicationController
 
   patch '/meals/:id' do
      redirect_if_not_logged_in
-     @meal = Meal.find_by_id(params[:id]) 
-     if current_user == @meal.user
-       @meal.update(name: params[:name], measurement_unit: params[:measurement_unit], weight: params[:weight], calories: params[:calories])
+      meal = Meal.find_by_id(params[:id]) 
+     if current_user == meal.user
+        if meal.update(name: params[:name], measurement_unit: params[:measurement_unit], weight: params[:weight], calories: params[:calories])
+          redirect to '/meals'
+        else
+          redirect to "/meals/#{meal.id}/edit"
+        end    
      end
      redirect to '/meals'
   end

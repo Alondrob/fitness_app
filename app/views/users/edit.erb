@@ -1,0 +1,23 @@
+<h4> You can edit your information </h4>
+<form action="/users/<%=current_user.id%>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <br>
+    <label for="name">Name </label>
+    <br>
+    <input type="text" name="name" value="<%=current_user.name%>"/>
+    <br>
+    <label for="email">Email </label>
+    <br>
+    <input type="text" name="email" value="<%=current_user.email%>"/>
+    <br>
+    <label for="weight">Weight </label>
+    <br>
+    <input type="number" name="weight" value="<%=current_user.weight%>"/>
+    <br>
+    <label for="height">Height </label>
+    <br>
+    <input type="text" name="height" value="<%=current_user.height%>"/>
+    <br>
+    <input type="submit" value="Edit User">
+
+</form>

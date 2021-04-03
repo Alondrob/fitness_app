@@ -11,25 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210326211924) do
+ActiveRecord::Schema.define(version: 20210403155556) do
 
   create_table "meals", force: :cascade do |t|
-    t.string   "name"
-    t.string   "measurement_unit"
-    t.float    "weight"
-    t.float    "calories"
+    t.string   "name",             null: false
+    t.string   "measurement_unit", null: false
+    t.float    "weight",           null: false
+    t.float    "calories",         null: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",            null: false
     t.string   "email",           null: false
-    t.string   "sex"
-    t.string   "height"
-    t.float    "weight"
-    t.integer  "age"
+    t.string   "sex",             null: false
+    t.string   "height",          null: false
+    t.float    "weight",          null: false
+    t.integer  "age",             null: false
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
