@@ -17,14 +17,18 @@ class MealsController < ApplicationController
   end
 
   get '/meals/:id' do
+    
     @meal = Meal.find_by_id(params[:id])
-    # @meal.user = current_user
+    if current_user.id == @meal.user
     erb :"meals/show"
+    else
+      redirect to '/meals'
+    end
   end
 
   get '/meals' do
     redirect_if_not_logged_in
-    user_meals = current_user.meals
+    user_meals = current_user.meals 
     @meals = user_meals.to_a.group_by { |meal| meal.created_at.to_date }
     # @meals.user = current_user
     erb :"meals/index"
