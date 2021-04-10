@@ -19,7 +19,7 @@ class MealsController < ApplicationController
   get '/meals/:id' do
     
     @meal = Meal.find_by_id(params[:id])
-    if current_user.id == @meal.user
+    if current_user == @meal.user
     erb :"meals/show"
     else
       redirect to '/meals'
